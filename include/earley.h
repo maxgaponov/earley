@@ -14,6 +14,9 @@ bool operator<(const Rule& lhs, const Rule& rhs);
 struct Configuration {
     Rule rule;
     int dot_position;
+
+    bool has_symbol_after_dot() const;
+    char symbol_after_dot() const;
 };
 
 bool operator<(const Configuration& lhs, const Configuration& rhs);
