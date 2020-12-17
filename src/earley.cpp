@@ -41,6 +41,19 @@ void Algo::_complete(int index) {
     }
 }
 
+void Algo::_predict(int index) {
+    for (const Configuration& conf : _configurations[index]) {
+        if (!conf.has_symbol_after_dot()) {
+            continue;
+        }
+        for (const Rule& rule : _grammar) {
+            if (rule.from == conf.symbol_after_dot()) {
+                _configurations[index].insert(Configuration{rule, 0, index});
+            }
+        }
+    }
+}
+
 bool operator<(const Rule& lhs, const Rule& rhs) {
     return std::tuple(lhs.from, lhs.to) < std::tuple(rhs.from, rhs.to);
 }
