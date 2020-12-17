@@ -25,3 +25,30 @@ TEST(test_conf, manip) {
     EXPECT_FALSE(conf.has_symbol_after_dot());
     EXPECT_EQ(conf.dot_position, 1);
 }
+
+TEST(test_earley, bbs) {
+    std::set<Rule> grammar = {
+            Rule{'S', ""},
+            Rule{'S', "(S)S"}
+    };
+    EXPECT_TRUE(Algo(grammar, "").in_language());
+    EXPECT_TRUE(Algo(grammar, "()").in_language());
+    EXPECT_TRUE(Algo(grammar, "(())()").in_language());
+    EXPECT_TRUE(Algo(grammar, "(()())((()))").in_language());
+    EXPECT_FALSE(Algo(grammar, ")(").in_language());
+    EXPECT_FALSE(Algo(grammar, "()(()").in_language());
+}
+
+TEST(test_earley, anbn) {
+    std::set<Rule> grammar = {
+            Rule{'S', ""},
+            Rule{'S', "aSb"}
+    };
+    EXPECT_TRUE(Algo(grammar, "").in_language());
+    EXPECT_TRUE(Algo(grammar, "ab").in_language());
+    EXPECT_TRUE(Algo(grammar, "aabb").in_language());
+    EXPECT_TRUE(Algo(grammar, "aaaaabbbbb").in_language());
+    EXPECT_FALSE(Algo(grammar, "b").in_language());
+    EXPECT_FALSE(Algo(grammar, "aaaaabbbb").in_language());
+    EXPECT_FALSE(Algo(grammar, "aaa").in_language());
+}
