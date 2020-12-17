@@ -33,5 +33,5 @@ add_executable(earley ${SOURCES})
 
 file(GLOB_RECURSE TEST_SOURCES src/*.cpp src_tests/*.cpp)
 add_executable(tester ${TEST_SOURCES})
-target_include_directories(tester PRIVATE "${gtest_SOURCE_DIR}/include")
+include_directories(tester PRIVATE "${gtest_SOURCE_DIR}/include")
 target_link_libraries(tester gtest_main)

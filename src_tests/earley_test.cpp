@@ -52,3 +52,41 @@ TEST(test_earley, anbn) {
     EXPECT_FALSE(Algo(grammar, "aaaaabbbb").in_language());
     EXPECT_FALSE(Algo(grammar, "aaa").in_language());
 }
+
+TEST(test_earley, scan) {
+    std::set<Rule> grammar = {
+            Rule{'S', ""},
+            Rule{'S', "aSb"}
+    };
+    std::string word = "aabb";
+    Algo algo(grammar, word);
+    algo._complete(0);
+    algo._predict(0);
+    algo._scan(1);
+    EXPECT_EQ(algo._configurations[1].size(), 1);
+}
+
+TEST(test_earley, predict) {
+    std::set<Rule> grammar = {
+            Rule{'S', ""},
+            Rule{'S', "aSb"}
+    };
+    std::string word = "aabb";
+    Algo algo(grammar, word);
+    algo._predict(0);
+    EXPECT_EQ(algo._configurations[0].size(), 3);
+}
+
+TEST(test_earley, complete) {
+    std::set<Rule> grammar = {
+            Rule{'S', ""},
+            Rule{'S', "aSb"}
+    };
+    std::string word = "aabb";
+    Algo algo(grammar, word);
+    algo._complete(0);
+    algo._predict(0);
+    algo._scan(1);
+    algo._complete(1);
+    EXPECT_EQ(algo._configurations[1].size(), 1);
+}

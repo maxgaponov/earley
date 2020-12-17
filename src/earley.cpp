@@ -1,10 +1,11 @@
 #include <earley.h>
 
 Algo::Algo(const std::set<Rule>& grammar, const std::string& word)
-: _word(word), _grammar(grammar), _configurations(word.length() + 1) {}
+: _word(word), _grammar(grammar), _configurations(word.length() + 1) {
+    _configurations[0].insert(Configuration{Rule{START_S, std::string{S}}, 0, 0});
+}
 
 bool Algo::in_language() {
-    _configurations[0].insert(Configuration{Rule{START_S, std::string{S}}, 0, 0});
     for (int index = 0; index <= _word.length(); ++index) {
         _scan(index);
         int prev_conf_size;

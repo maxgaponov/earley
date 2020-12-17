@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <tuple>
+#include <gtest/gtest.h>
 
 struct Rule {
     char from;
@@ -39,4 +40,8 @@ class Algo {
 
     const char START_S = '\0';
     const char S = 'S';
+
+    FRIEND_TEST(test_earley, scan);
+    FRIEND_TEST(test_earley, predict);
+    FRIEND_TEST(test_earley, complete);
 };
