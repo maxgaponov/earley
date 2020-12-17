@@ -59,7 +59,7 @@ bool operator<(const Rule& lhs, const Rule& rhs) {
 }
 
 bool operator<(const Configuration& lhs, const Configuration& rhs) {
-    return std::tuple(lhs.rule, lhs.dot_position) < std::tuple(rhs.rule, rhs.dot_position);
+    return std::tuple(lhs.rule, lhs.dot_position, lhs.index) < std::tuple(rhs.rule, rhs.dot_position, rhs.index);
 }
 
 bool Configuration::has_symbol_after_dot() const {
