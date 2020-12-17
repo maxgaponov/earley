@@ -14,9 +14,11 @@ bool operator<(const Rule& lhs, const Rule& rhs);
 struct Configuration {
     Rule rule;
     int dot_position;
+    int index;
 
     bool has_symbol_after_dot() const;
     char symbol_after_dot() const;
+    Configuration shift_dot() const;
 };
 
 bool operator<(const Configuration& lhs, const Configuration& rhs);
@@ -28,8 +30,8 @@ class Algo {
     bool in_language();
  private:
     void _scan(int index);
-    bool _predict(int index);
-    bool _complete(int index);
+    void _predict(int index);
+    void _complete(int index);
 
     std::string _word;
     std::set<Rule> _grammar;
